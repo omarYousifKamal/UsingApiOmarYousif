@@ -1,25 +1,29 @@
 import 'dart:async';
 import 'dart:convert';
-
+//عمر یوسف كمال
+//اظهار المعلومات من  الاي بي اي بواسطة ليك جيسون
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 
+
+//للملاحظة بعد اصدار الفتر 2.0 تم تغير كيفية ربط الاي بي اي مع التطبيق باضافة
+// البارس (Parse)
+
 Future<List<Photo>> fetchPhotos(http.Client client) async {
   final response = await client
       .get(Uri.parse('https://jsonplaceholder.typicode.com/photos'));
-
-  // Use the compute function to run parsePhotos in a separate isolate.
+//ربط الاي بي اي مع التطبيق 
+//رجوع قيمة الالوان بواسطة ريترن 
   return compute(parsePhotos, response.body);
 }
-
-// A function that converts a response body into a List<Photo>.
+//تغير القيمات المستدعاء الى صور حیث يمكن معاالجتها 
 List<Photo> parsePhotos(String responseBody) {
   final parsed = jsonDecode(responseBody).cast<Map<String, dynamic>>();
 
   return parsed.map<Photo>((json) => Photo.fromJson(json)).toList();
 }
-
+//صنع كلاس صور حيث فيها معلومات الصور و الالوان
 class Photo {
   final int albumId;
   final int id;
@@ -45,7 +49,7 @@ void main() => runApp(MyApp());
 class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    final appTitle = 'Isolate Demo';
+    final appTitle = 'استخدام الاي بي اي و عرض الصور';
 
     return MaterialApp(
       title: appTitle,
